@@ -1,0 +1,75 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<style>
+    .styled-table {
+        border-collapse: collapse;
+        font-size: 0.9em;
+        font-family: sans-serif;
+        min-width: 400px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+        .styled-table thead tr {
+            background-color: cornflowerblue;
+            color: #ffffff;
+            text-align: left;
+        }
+
+        .styled-table th,
+        .styled-table td {
+            padding: 12px 15px;
+        }
+
+        .styled-table tbody tr {
+            border-bottom: 1px solid #dddddd;
+        }
+
+            .styled-table tbody tr:nth-of-type(even) {
+                background-color: #f3f3f3;
+            }
+
+            .styled-table tbody tr:last-of-type {
+                border-bottom: 2px solid cornflowerblue;
+            }
+
+            .styled-table tbody tr.active-row {
+                font-weight: bold;
+                color: cornflowerblue;
+            }
+</style>
+
+<div class="text-center">
+                                  <h1 class="display-4">@Model.Location Weather</h1>
+                                  <p>Weather Forecast</p>
+                                  <p>@Model.Message</p>
+
+                                  <p><a href="/?location=Dallas">Dallas</a></p>
+                                  <p><a href="/?location=Minneapolis">Minneapolis</a></p>
+
+    @if (@Model.Items != null)
+    {
+                                  <table class="styled-table">
+                                  <thead>
+                                  <tr><th>Location</th><th>Time</th><th>Temp (°C)</th><th>Temp (°F)</th><th>Summary</th>
+            </thead>
+                                  <tbody>
+                @foreach (var forecast in Model.Items)
+                {
+                                  <tr>
+                                  <td>@forecast.Location</td>
+                                  <td>@forecast.Date.ToString("yyyy-MM-ddHH:MM")</td>
+                                  <td>@forecast.TemperatureC</td>
+                                  <td>@forecast.TemperatureF</td>
+                                  <td>@forecast.Summary</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
